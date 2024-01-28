@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import IdScoped from './id-generator/IdScoped';
+import { TasksList } from './tasks/TasksList';
+import { Task } from './tasks/tasks.types';
+
+const TASKS: Task[] = [  
+  { name: 'Add task'}, 
+  { name: 'Google it', subtasks: [ { name: 'Fancy dinner'}, { name: 'Vacation planning' } ]},
+  { name: 'Do groceries' }
+];
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <IdScoped id='app'>
+      <div className="App">
+        <TasksList tasks={TASKS}/>
+     </div>
+    </IdScoped>
   );
 }
 
