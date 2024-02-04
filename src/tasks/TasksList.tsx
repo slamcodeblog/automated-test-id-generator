@@ -4,11 +4,14 @@ import IdScoped from '../id-generator/IdScoped';
 import { Task } from './tasks.types';
 
 export const TasksList: React.FC<{ tasks: Task[] }> = (props) => {
-    return (<IdScoped id='tasks-list'>
-                <ul>
-                    {props.tasks.map((t, index) => {
-                        return <IdScoped key={'task-'+index} id='task' index={index}><li><TaskItem task={t}/></li></IdScoped>;
-                    })}
-                </ul>
-            </IdScoped>);
+
+    return (<>
+                <IdScoped id='tasks-list'>
+                    <ul>
+                        {props.tasks.map((t, index) => {
+                            return <IdScoped key={t.id} id={'task'+t.id.toString()} index={index}><li><TaskItem task={t}/></li></IdScoped>;
+                        })}
+                    </ul>
+                </IdScoped>
+            </>);
 }

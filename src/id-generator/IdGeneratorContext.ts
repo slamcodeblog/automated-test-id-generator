@@ -2,8 +2,7 @@ import { createContext, useContext } from "react"
 
 export interface IIdScope {
     getSegments: () => string[];
-    getItemId: (suffix: string) => string;
-    getListItemId: (suffix: string, index: number) => string;
+    getItemId: (suffix: string, index?: number) => string;
 }
 
 function normalize(value: string): string {
@@ -15,14 +14,15 @@ function generateId(segments: string[]): string {
 }
 
 class IdScope implements IIdScope {
-    readonly idSegments: string[];
+    private readonly _idSegments: string[];
     constructor(idSegments: string[]){
-        this.idSegments = idSegments;
+        this._idSegments = idSegments;
     }
 
-    getSegments= () => [...this.idSegments];
-    getItemId = (suffix: string) => generateId(this.idSegments.concat(suffix));
-    getListItemId = (suffix: string, index: number) => generateId(this.idSegments.concat(suffix, index.toString()));
+    getSegments= () => [...this._idSegments];
+    getItemId = (suffix: string, index?: number) =>
+        index === undefined ? generateId(this._idSegments.concat(suffix))
+            : generateId(this._idSegments.concat(suffix, index.toString()));
 }
 
 export const IdScopeContext = createContext(new IdScope([]) as IIdScope);

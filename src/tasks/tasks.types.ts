@@ -1,1 +1,1 @@
-export type Task = { name: string, subtasks?: Task[] }
+export type Task = {id: number, name: string, subtasks?: Task[] }
