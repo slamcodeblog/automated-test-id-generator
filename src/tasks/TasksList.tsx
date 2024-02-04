@@ -9,7 +9,7 @@ export const TasksList: React.FC<{ tasks: Task[] }> = (props) => {
                 <IdScoped id='tasks-list'>
                     <ul>
                         {props.tasks.map((t, index) => {
-                            return <IdScoped key={t.id} id={'task'+t.id.toString()} index={index}><li><TaskItem task={t}/></li></IdScoped>;
+                            return <li key={t.id}><TaskItem task={t}/></li>;
                         })}
                     </ul>
                 </IdScoped>

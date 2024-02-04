@@ -10,16 +10,19 @@ const TASKS: Task[] = [
   { id: 3, name: 'Do groceries' }
 ];
 
+function shuffle<T>(arr: T[]): T[] {
+  return arr.map(value => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map((item) => item.value);
+}
 
 function App() {
 
   const [tasks, setTasks] = useState(TASKS);
 
   function shuffleTasks(): void {
-    setTasks([...tasks
-      .map(value => ({ value, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ value }) => value)]);
+    const shuffledTasks = shuffle(tasks.map((v: Task) => { return { ...v, subtasks: v.subtasks ? shuffle(v.subtasks) : undefined }; }))
+    setTasks(shuffledTasks);
   }
 
   return (
